@@ -5,6 +5,8 @@ import {Route,
     Switch } from 'react-router-dom'
 import Login from '../screens/login'
 import Home from '../screens/home'
+import Library from '../screens/library'
+import PrivateRoute from '../tools/privateRoute'
 
 const Routes = () => {
     return(
@@ -12,6 +14,7 @@ const Routes = () => {
             <Switch>
                 <Route exact path='/' component={Login}></Route>
                 <Route path='/home' component={Home}></Route>
+                <PrivateRoute path='/library' component={Library}></PrivateRoute>
                 <Redirect to='/'></Redirect>
             </Switch>
         </Router>

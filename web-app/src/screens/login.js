@@ -15,7 +15,7 @@ const Login = () => {
         }
         axios( {
             method:'POST',
-            url:'https://easy-login-api.herokuapp.com/users/login',
+            url:process.env.REACT_APP_LOGIN_URL,
             data: {
                 username:formState.username,
                 password:formState.password
@@ -24,7 +24,7 @@ const Login = () => {
         .then(res => {
             localStorage.setItem('token',res.headers['x-access-token'])
             console.log('connexion ok')
-            history.push('/home')
+            history.push('/library')
         })
         .catch(err => {
             setErrorMessage('Error servor, please try again')
