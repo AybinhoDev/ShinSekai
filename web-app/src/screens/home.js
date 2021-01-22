@@ -8,10 +8,10 @@ const Home = () => {
     const [characters, setCharacters] = useState([])
     const options = {
         method: 'GET',
-        url: 'https://jikan1.p.rapidapi.com/manga/2/characters',
+        url: process.env.REACT_APP_GET_CHARACTERS_URL,
         headers: {
-          'x-rapidapi-key': 'a83f4d13fdmshd09e1cd9d88ac79p1a9957jsn75542e4e3807',
-          'x-rapidapi-host': 'jikan1.p.rapidapi.com'
+          'x-rapidapi-key': process.env.REACT_APP_API_KEY,
+          'x-rapidapi-host': process.env.REACT_APP_HOST_API
         }
       }
       
@@ -35,10 +35,10 @@ const Home = () => {
                 <StyledImage src={perso?.image_url}></StyledImage><br/>
                 <StyledText>{perso?.name}</StyledText>
             </div>
-      ))}
+            ))}
         </div>
-    );
-};
+    )
+}
 const StyledImage = styled.img`
 height:200px;
 width:150px;
