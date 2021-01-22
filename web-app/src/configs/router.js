@@ -7,10 +7,12 @@ import Login from '../screens/login'
 import Home from '../screens/home'
 import Library from '../screens/library'
 import PrivateRoute from '../tools/privateRoute'
+import Header from '../components/header';
 
 const Routes = () => {
     return(
         <Router>
+            <Header></Header>
             <Switch>
                 <Route exact path='/' component={Login}></Route>
                 <Route path='/home' component={Home}></Route>
