@@ -1,12 +1,18 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import styled from 'styled-components'
 import {useHistory } from 'react-router-dom'
 import axios from 'axios'
 import {useSelector, useDispatch} from 'react-redux'
 import { toggleAuthentication } from '../actions/authentication'
 import { motion } from 'framer-motion'
+import zorro from '../assets/zorro-cutting.png'
+import wanted from '../assets/zorro-wanted2.png'
 
 const Login = () => {
+    const [animate, setAnimate] = useState('initial')
+    setInterval(()=>{
+        setAnimate(animate==='initial' ? 'animated' : 'initial')
+    },2000)
     const [formState,setFormState] = useState({username:'',password:''})
     const [errorMessage,setErrorMessage]=useState('')
     const history = useHistory()
@@ -31,7 +37,9 @@ const Login = () => {
             console.log('connexion ok')
             console.log('IsAuthenticatedState =', isAuthenticationState)
             dispatch(toggleAuthentication())
-            history.push('/library')
+            setTimeout(()=>{
+                history.push('/library')
+            },3000)
         })
         .catch(err => {
             setErrorMessage('Error servor, please try again')
@@ -40,61 +48,86 @@ const Login = () => {
     }
     return (
         <MainContainer>
-           <Container>
+            {(isAuthenticationState) ?
+            (
+            <>
+            <Square variants={variantSquare} animate="animated">
+                <HalfSquareLeft variants={variantLeft} initial="initial" animate="animated"/>
+                <HalfSquareRight variants={variantRight} initial="initial" animate="animated"/>
+            </Square>
+            <Image src={zorro} alt="Picture of Zorro"></Image>
+            </>
+            ) : 
+            (
+            <>
+            <Container>
                 <StyledForm onSubmit={(e) =>submit(e)}>
-                <StyledTitle>The ShinSekaï</StyledTitle>
+                <CustomedDiv>
                 <StyledInput type='text' placeholder='Username' onChange={e =>setFormState({...formState, username:e.target.value})}></StyledInput>
                 <StyledInput type='password' placeholder='Password' onChange={e =>setFormState({...formState, password:e.target.value})}></StyledInput>
-                <StyledLabelError>{errorMessage}</StyledLabelError>
                 <StyledInput type='submit'></StyledInput>
+                </CustomedDiv>
                 </StyledForm>
             </Container>
+            <StyledLabelError>{errorMessage}</StyledLabelError>
+            </>
+            )   
+            }
+           
         </MainContainer>
     )
 }
 const MainContainer = styled.div`
-margin-top:15%;
+margin-top:5%;
 vertical-align: middle;
 `
+const Image = styled.img`
+margin-left:40%;
+height:295px;
+width:170px;
+`
 const Container = styled.div`
-background-color: #fefefe;
-padding-right: 15px;
-padding-left: 15px;
+//background-color: #fefefe;
 margin-right: auto;
 margin-left: auto;
 border: 1px solid #888;
-border-radius: 8%;
+width:180px;
+height:260px;
 box-shadow:0 4px 2px -2px gray;
-width: 20%;
+background-image: url(${wanted});
 `
+const CustomedDiv = styled.div`
+margin-top:177px;
+`
+const variantSquare = {
+    animated: {
+        rotate: [0, 0, 270, 270, 0],
+        borderRadius: ["20%", "20%", "50%", "50%", "20%"]
+    }
+}
 const Square = styled(motion.div)`
-width:20%;
-height:215px;
+width:180px;
+height:260px;
 margin-right: auto;
 margin-left: auto;
-background-color:black;
 display:flex;
 flex-direction:row;
 `
+const variantLeft = {
+    initial: {x: 0},
+    animated: {x: -20, transition: {delay: 2}}
+}
 const HalfSquareLeft = styled(Square)`
-border-top-left-radius: 8%;
-border-bottom-left-radius: 8%;
-background-color:green;
+background-color:black;
 margin:0;
 width:50%;
 `
-const variantSpace = {
-    initial: {x: 0, transition: { duration: 1}}
+const variantRight = {
+    initial: {x: 0},
+    animated: {x: 20, transition: {delay: 2}}
 }
-const CutSpace = styled(motion.div)`
-width:0px;
-background-color:white;
-
-`
 const HalfSquareRight = styled(Square)`
-border-top-right-radius: 8%;
-border-bottom-right-radius: 8%;
-background-color:green;
+background-color:black;
 margin:0;
 width:50%;
 `
@@ -121,7 +154,7 @@ const StyledInput = styled.input`
 margin: 6px 0px;
 border-radius: 12px;
 border: none;
-background-color:#1eaf7a;
+background-color:#00b894;
 height:30px;
 width:auto;
 color:white;
