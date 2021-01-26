@@ -8,11 +8,7 @@ const Home = () => {
     const [characters, setCharacters] = useState([])
     const options = {
         method: 'GET',
-        url: process.env.REACT_APP_GET_CHARACTERS_URL,
-        headers: {
-          'x-rapidapi-key': process.env.REACT_APP_API_KEY,
-          'x-rapidapi-host': process.env.REACT_APP_HOST_API
-        }
+        url: process.env.REACT_APP_GET_CHARACTERS_URL
       }
       
       useEffect(()=> {
