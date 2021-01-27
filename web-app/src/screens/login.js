@@ -90,6 +90,7 @@ const Container = styled.div`
 //background-color: #fefefe;
 margin-right: auto;
 margin-left: auto;
+margin-bottom: 50px;
 border: 1px solid #888;
 width:180px;
 height:260px;
@@ -145,6 +146,7 @@ text-align: center;
 font-weight:bold;
 `
 const StyledLabelError = styled.label`
+margin-top:100px;
 width: auto;
 text-align: justify;
 font-weight:bold;
