@@ -1,21 +1,25 @@
 import React from 'react'
 import styled from 'styled-components'
+import { useSelector, useDispatch } from 'react-redux'
+import { toggleAuthentication } from '../../actions/authentication'
 
 const Header = () => {
-
-  
-
+  const dispatch = useDispatch()
+  const isLogged = useSelector(state => state.toggleAuthentication.isAuthenticatedValue)
+  const handleClick = () => {
+    dispatch(toggleAuthentication())
+  }
   return (
     <Container>
          <StyledSpan>Shinsekai</StyledSpan>
        
-      {/* {isToken ? (
+      {isLogged ? (
         
-        <StyledSpan>se déconnecter</StyledSpan>
+        <StyledSpan onClick={handleClick}>Logout</StyledSpan>
         
       ) : (
         null
-      )} */}
+      )}
     </Container>
   )
 }
