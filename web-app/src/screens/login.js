@@ -9,11 +9,8 @@ import zorro from '../assets/zorro-cutting.png'
 import wanted from '../assets/zorro-wanted2.png'
 
 const Login = () => {
-    const [animate, setAnimate] = useState('initial')
-    setInterval(()=>{
-        setAnimate(animate==='initial' ? 'animated' : 'initial')
-    },2000)
     const [formState,setFormState] = useState({username:'',password:''})
+    const [isSended, setIsSended] = useState(false)
     const [errorMessage,setErrorMessage]=useState('')
     const history = useHistory()
     const dispatch = useDispatch()
@@ -35,16 +32,23 @@ const Login = () => {
         .then(res => {
             localStorage.setItem('token',res.headers['x-access-token'])
             dispatch(toggleAuthentication())
-            const timer = setTimeout(()=>{
-                history.push('/library')
-            },3000)
-            return () => clearTimeout(timer)
+            setIsSended(true)
+            console.log('ok')
         })
         .catch(err => {
             setErrorMessage('Error servor, please try again')
             console.log(err)
         })
     }
+    useEffect(()=> {
+            if(isSended){
+                console.log('is sended')
+                const timer = setTimeout(()=>{
+                history.push('/library')            
+                },3000)
+                return ()=>clearTimeout(timer)
+            }
+        },[isSended])
     return (
         <MainContainer>
             {(isAuthenticationState) ?
