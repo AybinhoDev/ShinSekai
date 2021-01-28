@@ -34,12 +34,11 @@ const Login = () => {
         })
         .then(res => {
             localStorage.setItem('token',res.headers['x-access-token'])
-            console.log('connexion ok')
-            console.log('IsAuthenticatedState =', isAuthenticationState)
             dispatch(toggleAuthentication())
-            setTimeout(()=>{
+            const timer = setTimeout(()=>{
                 history.push('/library')
             },3000)
+            return () => clearTimeout(timer)
         })
         .catch(err => {
             setErrorMessage('Error servor, please try again')
