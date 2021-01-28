@@ -5,43 +5,59 @@ import styled from 'styled-components';
 const Home = () => {
     const [error, setError] = useState(null)
     const [isLoaded, setIsLoaded] = useState(false)
-    const [characters, setCharacters] = useState([])
+    const [mangas, setMangas] = useState([])
     const options = {
         method: 'GET',
-        url: process.env.REACT_APP_GET_CHARACTERS_URL
+        url: process.env.REACT_APP_GET_MANGAS_URL
       }
       
       useEffect(()=> {
           axios.request(options)
           .then(res=>{
               setIsLoaded(true)
-              setCharacters(res.data.characters)
+              setMangas(res.data.top)
           })
           .catch(err=>{
                 setIsLoaded(true)
                 setError(err)
           });
 
-      })
+      },[])
     return (
         <div>
-            <h1>Personnages</h1>
-            {characters.map(perso => (
-            <div>
-                <StyledImage src={perso?.image_url}></StyledImage><br/>
-                <StyledText>{perso?.name}</StyledText>
-            </div>
+            <h1>Mangas les plus populaires</h1>
+            <StyledParent>
+            {mangas?.map(topM => (
+                <StyledChild>
+                    <StyledImage src={topM?.image_url}></StyledImage><br/>
+                    <StyledText>{topM?.title}</StyledText>
+                </StyledChild>
             ))}
+            </StyledParent>
         </div>
     )
 }
 const StyledImage = styled.img`
-height:200px;
-width:150px;
+height:230px;
+width:180px;
 `
+const StyledParent = styled.div`
+   display: flex;
+  flex-wrap: wrap;
+  margin-top: -10px;
+  margin-left: -10px;
+`
+
+const StyledChild = styled.div`
+  width: calc(25% - 10px);
+  margin-left: 5px;
+  margin-top: 5px;
+  height: 300px;
+`
+
 const StyledText = styled.span`
 text-align:center;
 font-weight:bold;
-color:green;
+color:black;
 `
 export default Home;
