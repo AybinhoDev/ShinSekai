@@ -7,11 +7,13 @@ import { toggleAuthentication } from '../actions/authentication'
 import { motion } from 'framer-motion'
 import zorro from '../assets/zorro-cutting.png'
 import wanted from '../assets/zorro-wanted2.png'
+import { useTranslation } from 'react-i18next'
 
 const Login = () => {
     const [formState,setFormState] = useState({username:'',password:''})
     const [isSended, setIsSended] = useState(false)
     const [errorMessage,setErrorMessage]=useState('')
+    const { t, i18n} = useTranslation()
     const history = useHistory()
     const dispatch = useDispatch()
     const isAuthenticationState = useSelector(state => state.toggleAuthentication.isAuthenticatedValue)
@@ -33,7 +35,6 @@ const Login = () => {
             localStorage.setItem('token',res.headers['x-access-token'])
             dispatch(toggleAuthentication())
             setIsSended(true)
-            console.log('ok')
         })
         .catch(err => {
             setErrorMessage('Error servor, please try again')
@@ -42,9 +43,8 @@ const Login = () => {
     }
     useEffect(()=> {
             if(isSended){
-                console.log('is sended')
                 const timer = setTimeout(()=>{
-                history.push('/library')            
+                history.push('/home')            
                 },3000)
                 return ()=>clearTimeout(timer)
             }
@@ -66,9 +66,9 @@ const Login = () => {
             <Container>
                 <StyledForm onSubmit={(e) =>submit(e)}>
                 <CustomedDiv>
-                <StyledInput type='text' placeholder='Username' onChange={e =>setFormState({...formState, username:e.target.value})}></StyledInput>
-                <StyledInput type='password' placeholder='Password' onChange={e =>setFormState({...formState, password:e.target.value})}></StyledInput>
-                <StyledInput type='submit'></StyledInput>
+                <StyledInput type='text' placeholder={t('login.username')} onChange={e =>setFormState({...formState, username:e.target.value})}></StyledInput>
+                <StyledInput type='password' placeholder={t('login.password')} onChange={e =>setFormState({...formState, password:e.target.value})}></StyledInput>
+                <StyledButton type='submit'>{t('login.submit')}</StyledButton>
                 </CustomedDiv>
                 </StyledForm>
             </Container>
@@ -90,7 +90,6 @@ height:295px;
 width:170px;
 `
 const Container = styled.div`
-//background-color: #fefefe;
 margin-right: auto;
 margin-left: auto;
 margin-bottom: 50px;
@@ -163,5 +162,10 @@ background-color:#00b894;
 height:30px;
 width:auto;
 color:white;
+`
+const StyledButton = styled.button`
+margin-top:15px;
+background-color:rgba(209,201,180);
+
 `
 export default Login;

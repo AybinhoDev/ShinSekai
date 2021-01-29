@@ -6,13 +6,33 @@ import {initReactI18next} from 'react-i18next'
 const resources = {
     en: {
         translation: {
-            logout: 'Logout'
+            logout: 'Logout',
+            login : {
+                signin: 'login',
+                username: 'Username',
+                password: 'Password',
+                submit: 'Submit'
+            },
+            home: {
+                popular:'List of the most popular manga',
+                library:'My library'
+            }
         }
     },
     fr: {
         translation: {
-            logout: 'Déconnexion'
-       } 
+            logout: 'Déconnexion',
+            login : {
+                signin: `s'identifier`,
+                username: 'Pseudo',
+                password: 'Mot de passe',
+                submit: 'Envoyer'
+            },
+            home: {
+                popular:'Liste des mangas les plus populaires',
+                library:'Ma bibliothèque'
+            }
+        } 
     }
 }
 i18n

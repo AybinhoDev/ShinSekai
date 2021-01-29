@@ -30,7 +30,9 @@ const Search = () => {
             <p>search</p>
             <input type="text" onChange={e => setQuery(e.target.value)}/>
             {results?.map(res => (
-                <p key={res?.id}>{res?.name}</p>
+                <div key={res?.id}>
+                    <p>{res?.name}</p>
+                </div>
             ))}
         </div>
     );

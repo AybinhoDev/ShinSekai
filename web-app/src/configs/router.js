@@ -19,7 +19,7 @@ const Routes = () => {
                 <Route path='/home' component={Home}></Route>
                 <PrivateRoute path='/library' component={Library}></PrivateRoute>
                 <PrivateRoute path='/search' component={Search}/>
-                <Redirect to='/'></Redirect>
+                <Redirect to='/home'></Redirect>
             </Switch>
         </Router>
     )

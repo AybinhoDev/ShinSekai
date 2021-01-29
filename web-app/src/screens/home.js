@@ -1,11 +1,17 @@
 import React, {useState, useEffect} from 'react';
 import axios from "axios";
 import styled from 'styled-components';
+import { useHistory } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 const Home = () => {
+    const isLogged = useSelector(state => state.toggleAuthentication.isAuthenticatedValue)
     const [error, setError] = useState(null)
     const [isLoaded, setIsLoaded] = useState(false)
     const [mangas, setMangas] = useState([])
+    const history = useHistory()
+    const { t, i18n } = useTranslation()
     const options = {
         method: 'GET',
         url: process.env.REACT_APP_GET_MANGAS_URL
@@ -25,7 +31,10 @@ const Home = () => {
       },[])
     return (
         <div>
-            <h1>Mangas les plus populaires</h1>
+            <Container>
+                {isLogged ? (<RedirectButtton onClick={()=>history.push('/library')}>{t('home.library')}</RedirectButtton>) : null }
+            </Container>
+            <h1>{t('home.popular')}</h1>
             <StyledParent>
             {mangas?.map(topM => (
                 <StyledChild>
@@ -37,15 +46,23 @@ const Home = () => {
         </div>
     )
 }
+const Container = styled.div`
+display:flex;
+flex-direction:row;
+justify-content:flex-end;
+width:100%;
+`
+const RedirectButtton = styled.button`
+`
 const StyledImage = styled.img`
 height:230px;
 width:180px;
 `
 const StyledParent = styled.div`
-   display: flex;
-  flex-wrap: wrap;
-  margin-top: -10px;
-  margin-left: -10px;
+display: flex;
+flex-wrap: wrap;
+margin-top: -10px;
+margin-left: -10px;
 `
 
 const StyledChild = styled.div`

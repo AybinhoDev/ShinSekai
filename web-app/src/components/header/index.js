@@ -6,22 +6,24 @@ import { toggleAuthentication } from '../../actions/authentication'
 import { useTranslation } from 'react-i18next'
 import france from '../../assets/france.png'
 import uk from '../../assets/united-kingdom.png'
+import { useHistory } from 'react-router-dom'
 
 const Header = () => {
   const dispatch = useDispatch()
+  const history = useHistory()
   const isLogged = useSelector(state => state.toggleAuthentication.isAuthenticatedValue)
-  const [ t, i18n ] = useTranslation()
+  const { t, i18n } = useTranslation()
   const handleClick = () => {
     dispatch(toggleAuthentication())
   }
   const changeLanguage = lng => {
     console.log('i18n',i18n)
-    //i18n.changeLanguage(lng)
+    i18n.changeLanguage(lng)
   }
   return (
     <Container>
       <StyledDiv>
-        <StyledSpan>Shinsekai</StyledSpan>
+        <StyledSpan onClick={()=>history.push('/home')}>Shinsekai</StyledSpan>
       </StyledDiv>
         <StyledDiv>
           <Flag src={france} onClick={() => changeLanguage('fr')}></Flag>
@@ -29,7 +31,7 @@ const Header = () => {
         {isLogged ? (
           <StyledSpan onClick={handleClick}>{t('logout')}</StyledSpan>
           ) : (
-            null
+            <StyledSpan onClick={()=>history.push('/')}>{t('login.signin')}</StyledSpan>
             )}
         </StyledDiv>
     </Container>
