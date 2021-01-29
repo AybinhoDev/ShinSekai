@@ -4,6 +4,9 @@ import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
+import library from './library';
+
 
 const Home = () => {
     const isLogged = useSelector(state => state.toggleAuthentication.isAuthenticatedValue)
@@ -29,6 +32,33 @@ const Home = () => {
           });
 
       },[])
+
+      const handleLibrary = library =>{
+        console.log("handleLibrary -> library",library)
+        const currentLibrary = localStorage.getItem('library') 
+          ? JSON.parse(localStorage.getItem('library'))
+          :[]
+
+        const isPresent = currentLibrary?.map(e => e.name).indexOf(library.name)
+        console.log('isPresent',isPresent)
+        
+        console.log(isPresent)
+
+        if(isPresent === -1){
+            currentLibrary.push(library)
+            localStorage.setItem('library',JSON.stringify(currentLibrary))
+
+            return
+        }else{
+            const filteredCharacters=currentLibrary.filter(
+                character => character.name !== library.name
+            )
+            console.log('filteredCharacters',filteredCharacters)
+            localStorage.setItem('library',JSON.stringify(filteredCharacters))
+        }
+      }
+
+
     return (
         <div>
             <Container>
@@ -38,9 +68,12 @@ const Home = () => {
             <StyledParent>
             {mangas?.map(topM => (
                 <StyledChild>
-                    <StyledImage src={topM?.image_url}></StyledImage><br/>
-                    <StyledText>{topM?.title}</StyledText>
-                </StyledChild>
+                <LibraryLink to={`/details/${topM?.title}`}>
+                <StyledImage src={topM?.image_url}></StyledImage><br/>
+                <StyledText>{topM?.title}</StyledText> 
+                </LibraryLink>
+                <button onClick={() => handleLibrary({img: topM?.image_url, name:topM?.title})}>Like</button>
+            </StyledChild>
             ))}
             </StyledParent>
         </div>
@@ -77,4 +110,8 @@ text-align:center;
 font-weight:bold;
 color:black;
 `
+export const LibraryLink = styled.a`
+  color: #fff;
+  text-align: center;
+`;
 export default Home;
