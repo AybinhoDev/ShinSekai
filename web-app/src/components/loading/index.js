@@ -22,6 +22,7 @@ const LoadingComponent = () => {
     );
 };
 const Container = styled.div`
+margin-top:15%;
 vertical-align: middle;
 `
 const variantImage = {
@@ -30,10 +31,11 @@ const variantImage = {
         rotate: [0, 0, 270, 270, 0],
         borderRadius: ["20%", "20%", "50%", "50%", "20%"],
     }
-}
+};
 const Image = styled(motion.img)`
 height:100px;
 width:100px;
+border-radius:20%;
 `
 const Label = styled.label`
 margin-bottom:50px;

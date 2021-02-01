@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import library from './library';
+import LoadingComponent from '../components/loading';
 
 
 const Home = () => {
@@ -19,12 +20,16 @@ const Home = () => {
         method: 'GET',
         url: process.env.REACT_APP_GET_MANGAS_URL
       }
-      
       useEffect(()=> {
           axios.request(options)
           .then(res=>{
-              setIsLoaded(true)
-              setMangas(res.data.top)
+            setIsLoaded(true)
+            setMangas(res.data.top)
+            //  Tester le loading sur 8s
+            //   setTimeout(()=>{
+            //     setIsLoaded(true)
+            //     setMangas(res.data.top)
+            //   },8000)
           })
           .catch(err=>{
                 setIsLoaded(true)
@@ -61,6 +66,8 @@ const Home = () => {
 
     return (
         <div>
+            {isLoaded?
+            <>
             <Container>
                 {isLogged ? (<RedirectButtton onClick={()=>history.push('/library')}>{t('home.library')}</RedirectButtton>) : null }
             </Container>
@@ -76,6 +83,10 @@ const Home = () => {
             </StyledChild>
             ))}
             </StyledParent>
+            </>
+            :
+            <LoadingComponent></LoadingComponent>
+            }
         </div>
     )
 }

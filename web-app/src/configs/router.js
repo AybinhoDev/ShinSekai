@@ -9,6 +9,7 @@ import Library from '../screens/library'
 import Search from '../screens/search'
 import PrivateRoute from '../tools/privateRoute'
 import Header from '../components/header';
+import Footer from '../components/footer'
 
 const Routes = () => {
     return(
@@ -21,6 +22,7 @@ const Routes = () => {
                 <PrivateRoute path='/search' component={Search}/>
                 <Redirect to='/home'></Redirect>
             </Switch>
+            <Footer></Footer>
         </Router>
     )
 }
