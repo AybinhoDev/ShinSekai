@@ -2,7 +2,6 @@ import React from 'react'
 import styled from 'styled-components'
 import { useSelector, useDispatch } from 'react-redux'
 import { toggleAuthentication } from '../../actions/authentication'
-//import i18n from 'i18next'
 import { useTranslation } from 'react-i18next'
 import france from '../../assets/france.png'
 import uk from '../../assets/united-kingdom.png'
@@ -17,7 +16,6 @@ const Header = () => {
     dispatch(toggleAuthentication())
   }
   const changeLanguage = lng => {
-    console.log('i18n',i18n)
     i18n.changeLanguage(lng)
   }
   return (

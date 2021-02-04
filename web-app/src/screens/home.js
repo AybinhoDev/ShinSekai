@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import library from './library';
 import LoadingComponent from '../components/loading';
+import ErrorNotFound from '../components/error';
 
 
 const Home = () => {
@@ -20,23 +21,20 @@ const Home = () => {
         method: 'GET',
         url: process.env.REACT_APP_GET_MANGAS_URL
       }
-      useEffect(()=> {
-          axios.request(options)
+    const getMangas = () => {
+      axios.request(options)
           .then(res=>{
             setIsLoaded(true)
             setMangas(res.data.top)
-            //  Tester le loading sur 8s
-            //   setTimeout(()=>{
-            //     setIsLoaded(true)
-            //     setMangas(res.data.top)
-            //   },8000)
           })
           .catch(err=>{
                 setIsLoaded(true)
                 setError(err)
           });
-
-      },[])
+    }
+    useEffect(()=> {
+      getMangas();
+    },[])
 
       const handleLibrary = library =>{
         console.log("handleLibrary -> library",library)
@@ -62,31 +60,37 @@ const Home = () => {
             localStorage.setItem('library',JSON.stringify(filteredCharacters))
         }
       }
-
-
+    if(!isLoaded){
+      return(
+        <LoadingComponent></LoadingComponent>
+      )
+    }
     return (
         <div>
-            {isLoaded?
-            <>
-            <Container>
-                {isLogged ? (<RedirectButtton onClick={()=>history.push('/library')}>{t('home.library')}</RedirectButtton>) : null }
-            </Container>
-            <h1>{t('home.popular')}</h1>
-            <StyledParent>
-            {mangas?.map(topM => (
-                <StyledChild>
-                <LibraryLink to={`/details/${topM?.title}`}>
-                <StyledImage src={topM?.image_url}></StyledImage><br/>
-                <StyledText>{topM?.title}</StyledText> 
-                </LibraryLink>
-                <button onClick={() => handleLibrary({img: topM?.image_url, name:topM?.title})}>Like</button>
-            </StyledChild>
-            ))}
-            </StyledParent>
-            </>
-            :
-            <LoadingComponent></LoadingComponent>
-            }
+              {mangas[0] ?
+                <>
+                <Container>
+                    {isLogged ? (<RedirectButtton onClick={()=>history.push('/library')}>{t('home.library')}</RedirectButtton>) : null }
+                </Container>
+                <h1>{t('home.popular')}</h1>
+                <StyledParent>
+                {mangas.map(topM => (
+                    <StyledChild>
+                    <LibraryLink to={`/details/${topM.title}`}>
+                    <StyledImage src={topM.image_url}></StyledImage><br/>
+                    <StyledText>{topM.title}</StyledText> 
+                    </LibraryLink>
+                    <button onClick={() => handleLibrary({img: topM.image_url, name:topM.title})}>Like</button>
+                </StyledChild>
+                ))}
+                </StyledParent>
+                </>
+              :
+              <>
+              <ErrorNotFound></ErrorNotFound>
+              <button onClick={getMangas()}>Retry</button>
+              </>
+              }
         </div>
     )
 }

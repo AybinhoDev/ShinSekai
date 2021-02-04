@@ -2,8 +2,11 @@ import React, { useState, useEffect, useRef } from 'react';
 import logo from '../../assets/zorro-logo.jpeg';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
+
 
 const LoadingComponent = () => {
+    const { t, i18n } = useTranslation()
     const [animate, setAnimate] = useState('initial');
     const animationTimeout = useRef(null);
     useEffect(() => {
@@ -17,7 +20,7 @@ const LoadingComponent = () => {
     return (
         <Container>
             <Image src={logo}  variants={variantImage} animate={animate}></Image><br/>
-            <Label>Loading...</Label>
+            <Label>{t('pending.loading')}</Label>
         </Container>
     );
 };
@@ -36,6 +39,7 @@ const Image = styled(motion.img)`
 height:100px;
 width:100px;
 border-radius:20%;
+margin-bottom: 50px;
 `
 const Label = styled.label`
 margin-bottom:50px;

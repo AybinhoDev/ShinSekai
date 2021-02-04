@@ -20,7 +20,7 @@ const Login = () => {
     const submit = e => {
         e.preventDefault()
         if(!formState.username || !formState.password){
-            setErrorMessage('Fields username and password need to be filled')
+            setErrorMessage(t(`login.errorFields`))
             return
         }
         axios( {
@@ -37,7 +37,7 @@ const Login = () => {
             setIsSended(true)
         })
         .catch(err => {
-            setErrorMessage('Error servor, please try again')
+            setErrorMessage(t(`login.errorServor`))
             console.log(err)
         })
     }

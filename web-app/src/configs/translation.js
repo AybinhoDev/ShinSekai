@@ -11,11 +11,17 @@ const resources = {
                 signin: 'login',
                 username: 'Username',
                 password: 'Password',
-                submit: 'Submit'
+                submit: 'Submit',
+                errorServor:'Error servor, please try again',
+                errorFields:'Required fields need to be filled'
             },
             home: {
                 popular:'List of the most popular manga',
                 library:'My library'
+            },
+            pending: {
+                loading:'Loading...',
+                notFound:'Items not found.'
             }
         }
     },
@@ -26,11 +32,17 @@ const resources = {
                 signin: `s'identifier`,
                 username: 'Pseudo',
                 password: 'Mot de passe',
-                submit: 'Envoyer'
+                submit: 'Envoyer',
+                errorServor:'Erreur du serveur, veuillez réessayer.',
+                errorFields:'Les champs requis ne sont pas remplis'
             },
             home: {
                 popular:'Liste des mangas les plus populaires',
                 library:'Ma bibliothèque'
+            },
+            pending: {
+                loading:'Chargement...',
+                notFound:'Éléments indisponibles.'
             }
         } 
     }
@@ -46,7 +58,7 @@ i18n
     .use(initReactI18next).init({
     lng:'fr',
     fallbackLng:'en',
-    debug: true,
+    debug: false,
     resources,
     interpolation: {
         escapeValue: false
