@@ -22,6 +22,10 @@ const resources = {
             pending: {
                 loading:'Loading...',
                 notFound:'Items not found.'
+            },
+            detail: {
+                back: 'back',
+                add: 'add'
             }
         }
     },
@@ -43,6 +47,10 @@ const resources = {
             pending: {
                 loading:'Chargement...',
                 notFound:'Éléments indisponibles.'
+            },
+            detail: {
+                back: 'retour',
+                add: 'ajouter'
             }
         } 
     }

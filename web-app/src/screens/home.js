@@ -4,11 +4,9 @@ import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
-import library from './library';
 import LoadingComponent from '../components/loading';
 import ErrorNotFound from '../components/error';
-
+import { motion } from 'framer-motion';
 
 const Home = () => {
     const isLogged = useSelector(state => state.toggleAuthentication.isAuthenticatedValue)
@@ -30,36 +28,12 @@ const Home = () => {
           .catch(err=>{
                 setIsLoaded(true)
                 setError(err)
+                console.log(error)
           });
     }
     useEffect(()=> {
       getMangas();
     },[])
-
-      const handleLibrary = library =>{
-        console.log("handleLibrary -> library",library)
-        const currentLibrary = localStorage.getItem('library') 
-          ? JSON.parse(localStorage.getItem('library'))
-          :[]
-
-        const isPresent = currentLibrary?.map(e => e.name).indexOf(library.name)
-        console.log('isPresent',isPresent)
-        
-        console.log(isPresent)
-
-        if(isPresent === -1){
-            currentLibrary.push(library)
-            localStorage.setItem('library',JSON.stringify(currentLibrary))
-
-            return
-        }else{
-            const filteredCharacters=currentLibrary.filter(
-                character => character.name !== library.name
-            )
-            console.log('filteredCharacters',filteredCharacters)
-            localStorage.setItem('library',JSON.stringify(filteredCharacters))
-        }
-      }
     if(!isLoaded){
       return(
         <LoadingComponent></LoadingComponent>
@@ -69,18 +43,15 @@ const Home = () => {
         <div>
               {mangas[0] ?
                 <>
-                <Container>
-                    {isLogged ? (<RedirectButtton onClick={()=>history.push('/library')}>{t('home.library')}</RedirectButtton>) : null }
-                </Container>
                 <h1>{t('home.popular')}</h1>
                 <StyledParent>
                 {mangas.map(topM => (
                     <StyledChild>
-                    <LibraryLink to={`/details/${topM.title}`}>
-                    <StyledImage src={topM.image_url}></StyledImage><br/>
+                    <LibraryLink>
+                    <StyledImage variants={variantImg} whileHover="whileHover" whileTap="whileTap"
+                    onClick={() => history.push(`/detail/${topM.title}`)} src={topM.image_url}></StyledImage><br/>
                     <StyledText>{topM.title}</StyledText> 
                     </LibraryLink>
-                    <button onClick={() => handleLibrary({img: topM.image_url, name:topM.title})}>Like</button>
                 </StyledChild>
                 ))}
                 </StyledParent>
@@ -102,9 +73,16 @@ width:100%;
 `
 const RedirectButtton = styled.button`
 `
-const StyledImage = styled.img`
+const variantImg = {
+  whileHover: { scale: 1.1 },
+  whileTap:{ scale: 0.9 }
+}
+
+const StyledImage = styled(motion.img)`
 height:230px;
 width:180px;
+border-radius:25%;
+box-shadow:0 4px 2px -2px gray;
 `
 const StyledParent = styled.div`
 display: flex;

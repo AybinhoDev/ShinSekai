@@ -54,6 +54,7 @@ letter-spacing: 0.2rem;
 font-weight: bold;
 `
 const StyledDiv = styled.div `
+margin: 0 2%;
 display: inline-flex;
 align-items:center;
 `
