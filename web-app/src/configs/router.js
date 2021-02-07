@@ -21,7 +21,7 @@ const Routes = () => {
                 <Route path='/home' component={Home}></Route>
                 <Route path='/detail/:name' component={Detail}></Route>
                 <PrivateRoute path='/library' component={Library}></PrivateRoute>
-                <PrivateRoute path='/search' component={Search}/>
+                <Route path='/search' component={Search}></Route>
                 <Redirect to='/home'></Redirect>
             </Switch>
             <Footer></Footer>

@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 import LoadingComponent from '../components/loading';
 import ErrorNotFound from '../components/error';
 import { motion } from 'framer-motion';
+import WithAnimation from '../components/search/WithAnimation';
 
 const Home = () => {
     const isLogged = useSelector(state => state.toggleAuthentication.isAuthenticatedValue)
@@ -39,39 +40,43 @@ const Home = () => {
         <LoadingComponent></LoadingComponent>
       )
     }
+    const optionValues = mangas.map(d => ({
+      "label" : d.title
+    }))
     return (
         <div>
-              {mangas[0] ?
-                <>
-                <h1>{t('home.popular')}</h1>
-                <StyledParent>
-                {mangas.map(topM => (
-                    <StyledChild>
-                    <LibraryLink>
-                    <StyledImage variants={variantImg} whileHover="whileHover" whileTap="whileTap"
-                    onClick={() => history.push(`/detail/${topM.title}`)} src={topM.image_url}></StyledImage><br/>
-                    <StyledText>{topM.title}</StyledText> 
-                    </LibraryLink>
-                </StyledChild>
-                ))}
-                </StyledParent>
-                </>
-              :
-              <>
-              <ErrorNotFound></ErrorNotFound>
-              <button onClick={getMangas()}>Retry</button>
-              </>
-              }
+          {mangas[0] ?
+            <>
+            <SearchContainer>
+            <StyledText>Search</StyledText>
+            <WithAnimation options={optionValues} onChange={(values) => this.onChange(values)}></WithAnimation>
+            </SearchContainer>
+            <h1>{t('home.popular')}</h1>
+            <StyledParent>
+            {mangas.map(topM => (
+                <StyledChild>
+                <LibraryLink>
+                <StyledImage variants={variantImg} whileHover="whileHover" whileTap="whileTap"
+                onClick={() => history.push(`/detail/${topM.title}`)} src={topM.image_url}></StyledImage><br/>
+                <StyledText>{topM.title}</StyledText> 
+                </LibraryLink>
+            </StyledChild>
+            ))}
+            </StyledParent>
+            </>
+          :
+          <>
+          <ErrorNotFound></ErrorNotFound>
+          <button onClick={getMangas()}>Retry</button>
+          </>
+          }
         </div>
     )
 }
-const Container = styled.div`
+const SearchContainer = styled.div`
+padding:2%;
 display:flex;
-flex-direction:row;
-justify-content:flex-end;
-width:100%;
-`
-const RedirectButtton = styled.button`
+flex-direction:column;
 `
 const variantImg = {
   whileHover: { scale: 1.1 },

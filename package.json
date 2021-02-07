@@ -3,6 +3,7 @@
     "axios": "^0.21.1",
     "framer-motion": "^3.2.2-rc.1",
     "i18next": "^19.8.4",
+    "react-dropdown-select": "^4.7.3",
     "react-i18next": "^11.8.5"
   },
   "devDependencies": {
