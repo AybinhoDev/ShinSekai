@@ -10,7 +10,6 @@ import { motion } from 'framer-motion';
 import WithAnimation from '../components/search/WithAnimation';
 
 const Home = () => {
-    const isLogged = useSelector(state => state.toggleAuthentication.isAuthenticatedValue)
     const [error, setError] = useState(null)
     const [isLoaded, setIsLoaded] = useState(false)
     const [mangas, setMangas] = useState([])
@@ -20,6 +19,9 @@ const Home = () => {
         method: 'GET',
         url: process.env.REACT_APP_GET_MANGAS_URL
       }
+      const optionValues = mangas.map(d => ({
+        "label" : d.title,
+      }))
     const getMangas = () => {
       axios.request(options)
           .then(res=>{
@@ -27,9 +29,8 @@ const Home = () => {
             setMangas(res.data.top)
           })
           .catch(err=>{
-                setIsLoaded(true)
-                setError(err)
-                console.log(error)
+            setError(err)
+            setIsLoaded(true)
           });
     }
     useEffect(()=> {
@@ -40,38 +41,38 @@ const Home = () => {
         <LoadingComponent></LoadingComponent>
       )
     }
-    const optionValues = mangas.map(d => ({
-      "label" : d.title
-    }))
-    return (
-        <div>
-          {mangas[0] ?
-            <>
-            <SearchContainer>
-            <StyledText>Search</StyledText>
-            <WithAnimation options={optionValues} onChange={(values) => this.onChange(values)}></WithAnimation>
-            </SearchContainer>
-            <h1>{t('home.popular')}</h1>
-            <StyledParent>
-            {mangas.map(topM => (
-                <StyledChild>
-                <LibraryLink>
-                <StyledImage variants={variantImg} whileHover="whileHover" whileTap="whileTap"
-                onClick={() => history.push(`/detail/${topM.title}`)} src={topM.image_url}></StyledImage><br/>
-                <StyledText>{topM.title}</StyledText> 
-                </LibraryLink>
-            </StyledChild>
-            ))}
-            </StyledParent>
-            </>
-          :
+    else{
+      if(!mangas[0]){
+        return(
           <>
           <ErrorNotFound></ErrorNotFound>
           <button onClick={getMangas()}>Retry</button>
           </>
-          }
-        </div>
-    )
+        )
+      }
+      else{
+        return (
+            <>
+              <SearchContainer>
+              <StyledText>Search</StyledText>
+              <WithAnimation options={optionValues} onChange={(e) => this.onChange(e)}></WithAnimation>
+              </SearchContainer>
+              <h1>{t('home.popular')}</h1>
+              <StyledParent>
+              {mangas.map(topM => (
+                  <StyledChild>
+                  <LibraryLink>
+                  <StyledImage variants={variantImg} whileHover="whileHover" whileTap="whileTap"
+                  onClick={() => history.push(`/detail/${topM.title}`)} src={topM.image_url}></StyledImage><br/>
+                  <StyledText>{topM.title}</StyledText> 
+                  </LibraryLink>
+              </StyledChild>
+              ))}
+              </StyledParent>
+            </>
+        )
+      }
+    }
 }
 const SearchContainer = styled.div`
 padding:2%;

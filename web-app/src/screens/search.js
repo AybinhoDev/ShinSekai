@@ -25,7 +25,8 @@ const Search = () => {
       })
     }, [query])
     const options = results.map(d => ({
-        "label" : d.title
+        "label" : d.title,
+        "id": d.title
     }))
     return (
         <div>

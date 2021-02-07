@@ -6,7 +6,6 @@ import {Route,
 import Login from '../screens/login'
 import Home from '../screens/home'
 import Library from '../screens/library'
-import Search from '../screens/search'
 import PrivateRoute from '../tools/privateRoute'
 import Header from '../components/header';
 import Footer from '../components/footer'
@@ -21,7 +20,6 @@ const Routes = () => {
                 <Route path='/home' component={Home}></Route>
                 <Route path='/detail/:name' component={Detail}></Route>
                 <PrivateRoute path='/library' component={Library}></PrivateRoute>
-                <Route path='/search' component={Search}></Route>
                 <Redirect to='/home'></Redirect>
             </Switch>
             <Footer></Footer>
