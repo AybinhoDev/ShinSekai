@@ -6,5 +6,6 @@
     },
     "staticWebApps.appSubpath": "/",
     "staticWebApps.apiSubpath": "/",
-    "staticWebApps.outputSubpath": "build"
+    "staticWebApps.outputSubpath": "build",
+    "git.ignoreLimitWarning": true
 }
