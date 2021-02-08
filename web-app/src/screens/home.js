@@ -100,6 +100,7 @@ border-radius:25px;
 box-shadow:0 4px 2px -2px gray;
 
 `
+
 const StyledParent = styled.div`
 display: flex;
 flex-wrap: wrap;

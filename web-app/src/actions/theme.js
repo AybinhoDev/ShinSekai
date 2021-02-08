@@ -4,3 +4,4 @@ export const changeTheme = payload => ({
   type: CHANGE_THEME,
   payload
 })
+

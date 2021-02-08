@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 
 
+
 const LoadingComponent = () => {
     const { t, i18n } = useTranslation()
     const [animate, setAnimate] = useState('initial');

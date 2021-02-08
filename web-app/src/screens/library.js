@@ -17,7 +17,7 @@ const Library = () => {
     const deleteLibrary = title => {
         const newLibrarys = lib.filter(tibrary => tibrary.name !== title)
         setLibrarys(newLibrarys)
-      }    
+      }     
     return (
         <div>
             <Link to='/search'>Manga</Link>

@@ -6,6 +6,7 @@ import {store} from './configs/store';
 import {ThemeProvider} from 'styled-components'
 import {themeLight, themeDark} from './configs/theme'
 
+
 function App() {
   const [currentTheme, setCurrentTheme] = useState(themeLight,themeDark)
   useEffect(() => {

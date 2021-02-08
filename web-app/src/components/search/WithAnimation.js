@@ -98,6 +98,7 @@ width:180px;
 border-radius:25px;
 box-shadow:0 4px 2px -2px gray;
 
+
 `
 const StyledChild = styled.div`
   width: 180px;

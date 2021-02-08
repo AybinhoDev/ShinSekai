@@ -29,6 +29,7 @@ const resources = {
             }
         }
     },
+    
     fr: {
         translation: {
             logout: 'DECONNEXION',

@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import LoadingComponent from '../loading';
 
+
 const Detail = (props) => {
     const [manga, setManga] = useState({})
     const [isLoaded, setIsLoaded] = useState(false)
