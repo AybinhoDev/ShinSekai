@@ -3,5 +3,8 @@
         "activityBar.background": "#352B32",
         "titleBar.activeBackground": "#4A3C45",
         "titleBar.activeForeground": "#FBFAFB"
-    }
+    },
+    "staticWebApps.appSubpath": "/",
+    "staticWebApps.apiSubpath": "/",
+    "staticWebApps.outputSubpath": "build"
 }
