@@ -9,7 +9,6 @@ import zorro from '../assets/zorro-cutting.png'
 import wanted from '../assets/zorro-wanted2.png'
 import { useTranslation } from 'react-i18next'
 
-
 const Login = () => {
     const [formState,setFormState] = useState({username:'',password:''})
     const [isSended, setIsSended] = useState(false)

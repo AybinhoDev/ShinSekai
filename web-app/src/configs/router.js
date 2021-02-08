@@ -13,8 +13,6 @@ import Footer from '../components/footer'
 import Detail from '../components/detail'
 import { createGlobalStyle } from 'styled-components'
 
-
-
 const GlobalStyle = createGlobalStyle`
   body {
     transition: background-color 1s ease;

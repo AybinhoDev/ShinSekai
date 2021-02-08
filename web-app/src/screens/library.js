@@ -13,7 +13,6 @@ const Library = () => {
     useEffect(() => {
         console.log('Library -> Lib', lib)
     },[lib])
-
     const deleteLibrary = title => {
         const newLibrarys = lib.filter(tibrary => tibrary.name !== title)
         setLibrarys(newLibrarys)

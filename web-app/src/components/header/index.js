@@ -8,7 +8,6 @@ import uk from '../../assets/united-kingdom.png'
 import { useHistory } from 'react-router-dom'
 import ThemeButton from '../button/themeButton'
 
-
 const Header = () => {
   const dispatch = useDispatch()
   const history = useHistory()
