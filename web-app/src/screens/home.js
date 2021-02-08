@@ -52,43 +52,53 @@ const Home = () => {
       }
       else{
         return (
-            <>
+            <Container>
               <SearchContainer>
-              <StyledText>Search</StyledText>
+              <h1>Search</h1>
               <WithAnimation options={optionValues} onChange={(e) => this.onChange(e)}></WithAnimation>
               </SearchContainer>
               <h1>{t('home.popular')}</h1>
               <StyledParent>
               {mangas.map(topM => (
-                  <StyledChild>
+                <StyledChild>
                   <LibraryLink>
+                  <ImgContainer>
                   <StyledImage variants={variantImg} whileHover="whileHover" whileTap="whileTap"
-                  onClick={() => history.push(`/detail/${topM.title}`)} src={topM.image_url}></StyledImage><br/>
+                  onClick={() => history.push(`/detail/${topM.title}`)} src={topM.image_url}></StyledImage>
+                  </ImgContainer>
                   <StyledText>{topM.title}</StyledText> 
                   </LibraryLink>
-              </StyledChild>
+                </StyledChild>
               ))}
               </StyledParent>
-            </>
+            </Container>
         )
       }
     }
 }
+
+
+
+const Container = styled.div`
+width:100%;
+`
 const SearchContainer = styled.div`
 padding:2%;
 display:flex;
 flex-direction:column;
 `
-const variantImg = {
-  whileHover: { scale: 1.1 },
-  whileTap:{ scale: 0.9 }
-}
-
+const ImgContainer = styled.div`
+position: relative;
+clip-path: polygon(0 0,100% 0, 100% 85%, 0 100%);
+padding:0;
+margin: 0;
+`
 const StyledImage = styled(motion.img)`
-height:230px;
-width:180px;
-border-radius:25%;
+height:300px;
+width:240px;
+border-radius:25px;
 box-shadow:0 4px 2px -2px gray;
+
 `
 const StyledParent = styled.div`
 display: flex;
@@ -98,19 +108,31 @@ margin-left: -10px;
 `
 
 const StyledChild = styled.div`
-  width: calc(25% - 10px);
-  margin-left: 5px;
-  margin-top: 5px;
-  height: 300px;
+  width: 240px;
+  margin: 2%;
+  height: 380px;
+  background: rgba( 200, 200, 200, 0.25 );
+box-shadow: 0 8px 32px 0 rgba( 0, 184, 148, 0.47 );
+backdrop-filter: blur( 4px );
+-webkit-backdrop-filter: blur( 4px );
+border-radius: 25px;
+border: 1px solid rgba( 255, 255, 255, 0.18 );
 `
 
 const StyledText = styled.span`
 text-align:center;
 font-weight:bold;
-color:black;
+color:${props => props.theme.text.common} ;
+width:180px;
+padding: 0 5px;
 `
 export const LibraryLink = styled.a`
-  color: #fff;
   text-align: center;
+
 `;
+
+const variantImg = {
+    whileHover: { scale: 1.1 },
+    whileTap:{ scale: 0.9 }
+  }
 export default Home;

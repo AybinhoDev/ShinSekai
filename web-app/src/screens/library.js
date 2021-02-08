@@ -1,9 +1,11 @@
 import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom'
-
+import { motion } from 'framer-motion';
+import { useHistory } from 'react-router-dom';
 
 const Library = () => {
+    const history = useHistory()
     const currentLibrary = localStorage.getItem('library') 
     ? JSON.parse(localStorage.getItem('library'))
     :[]
@@ -12,13 +14,10 @@ const Library = () => {
         console.log('Library -> Lib', lib)
     },[lib])
 
-
-
     const deleteLibrary = title => {
         const newLibrarys = lib.filter(tibrary => tibrary.name !== title)
         setLibrarys(newLibrarys)
-      }
-    
+      }    
     return (
         <div>
             <Link to='/search'>Manga</Link>
@@ -27,13 +26,17 @@ const Library = () => {
             {lib.map(topM => (      
 
             <div key={topM.name}>
-                <p>
-                {topM.name}
-                </p>
-                <img src={topM.img}></img>
-                
-
+              <StyledChild>
+              <LibraryLink>
+              <ImgContainer>
+                <StyledImage variants={variantImg} whileHover="whileHover" whileTap="whileTap"
+                  onClick={() => history.push(`/detail/${topM.title}`)}src={topM.img}>
+                </StyledImage>
+                </ImgContainer>
+                <StyledText>{topM.title}</StyledText> 
                 <button onClick={() => deleteLibrary(topM.name)}>supprimer</button>
+              </LibraryLink>
+              </StyledChild>
             </div>
             ))}
         </div>
@@ -41,63 +44,52 @@ const Library = () => {
 };
 
 
-export default Library
+const ImgContainer = styled.div`
+position: relative;
+clip-path: polygon(0 0,100% 0, 100% 85%, 0 100%);
+padding:0;
+margin: 0;
+`
+const StyledImage = styled(motion.img)`
+height:300px;
+width:240px;
+border-radius:25px;
+box-shadow:0 4px 2px -2px gray;
 
-export const LibraryContainer = styled.div`
-  background: black;
-  color: #fff;
-  padding: 1rem 0rem;
-`;
+`
+const StyledParent = styled.div`
+display: flex;
+flex-wrap: wrap;
+margin-top: -10px;
+margin-left: -10px;
+`
 
-export const LibraryWrapper = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin-rigth:10%;
-  margin-left:10%;
-`;
+const StyledChild = styled.div`
+  width: 240px;
+  margin: 2%;
+  height: 380px;
+  background: rgba( 200, 200, 200, 0.25 );
+box-shadow: 0 8px 32px 0 rgba( 0, 184, 148, 0.47 );
+backdrop-filter: blur( 4px );
+-webkit-backdrop-filter: blur( 4px );
+border-radius: 25px;
+border: 1px solid rgba( 255, 255, 255, 0.18 );
+`
 
-export const LibraryCard = styled.div`
-  width: 400px;
-  display: flex;
-  flex-direction: row;
-  margin:1rem
-`;
-
-export const LibraryImg = styled.img`
-  height: 125px;
-  min-width: 125px;
-  margin-top:10%;
-  max-width: 100%;
-  box-shadow: 8px 8px #db80ff;
-`;
-
-export const LibraryHeading = styled.h1`
-  font-size: 2.5rem;
-  text-align: center;
-  padding: 1rem;
-  color:#db80ff;
-  text-transform:uppercase;
-  border-top:2px #fff;
-`;
-
-export const LibraryTitle = styled.h2`
-  font-size: 1.5rem;
-  margin:10px;
-`;
-
-export const LibraryButton = styled.button`
-color:white;
-background: linear-gradient(-75deg,#db80ff,#ca45ff,#716fff,#43baff,#43f2ff);
-width: 200px;
-height: 40px;
-font-size: 20px;
-border-radius: 20px;
-border: none;
-`;
-
+const StyledText = styled.span`
+text-align:center;
+font-weight:bold;
+color:${props => props.theme.text.common} ;;
+width:180px;
+padding: 0 5px;
+`
 export const LibraryLink = styled.a`
-  color: #fff;
-  font-size: 20px;
   text-align: center;
+
 `;
+
+const variantImg = {
+    whileHover: { scale: 1.1 },
+    whileTap:{ scale: 0.9 }
+  }
+export default Library;

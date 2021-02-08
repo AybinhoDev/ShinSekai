@@ -6,9 +6,9 @@ import {initReactI18next} from 'react-i18next'
 const resources = {
     en: {
         translation: {
-            logout: 'Logout',
+            logout: 'LOGOUT',
             login : {
-                signin: 'login',
+                signin: 'LOGIN',
                 username: 'Username',
                 password: 'Password',
                 submit: 'Submit',
@@ -24,16 +24,16 @@ const resources = {
                 notFound:'Items not found.'
             },
             detail: {
-                back: 'back',
-                add: 'add'
+                back: 'Aack',
+                add: 'Add'
             }
         }
     },
     fr: {
         translation: {
-            logout: 'Déconnexion',
+            logout: 'DECONNEXION',
             login : {
-                signin: `s'identifier`,
+                signin: `IDENTIFICATION`,
                 username: 'Pseudo',
                 password: 'Mot de passe',
                 submit: 'Envoyer',
@@ -49,8 +49,8 @@ const resources = {
                 notFound:'Éléments indisponibles.'
             },
             detail: {
-                back: 'retour',
-                add: 'ajouter'
+                back: 'Retour',
+                add: 'Ajouter'
             }
         } 
     }

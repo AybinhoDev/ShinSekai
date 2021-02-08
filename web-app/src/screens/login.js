@@ -166,6 +166,8 @@ color:white;
 const StyledButton = styled.button`
 margin-top:15px;
 background-color:rgba(209,201,180);
-
+width: 175px;
+height:30px;
+border-radius: 20px;
 `
 export default Login;

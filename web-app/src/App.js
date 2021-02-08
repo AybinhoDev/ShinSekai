@@ -1,14 +1,27 @@
+import React, { useEffect, useState } from 'react'
 import './App.css';
 import Routes from './configs/router';
 import {Provider} from 'react-redux';
 import {store} from './configs/store';
+import {ThemeProvider} from 'styled-components'
+import {themeLight, themeDark} from './configs/theme'
 
 function App() {
+  const [currentTheme, setCurrentTheme] = useState(themeLight,themeDark)
+  useEffect(() => {
+    store.subscribe(() => {
+      setCurrentTheme(store.getState().theme.currentTheme)
+    })
+  })
   return (
     <div className="App">
-        <Provider store={store}>
+      <ThemeProvider theme={themeDark} >
+
+      <Provider store={store}>
           <Routes></Routes>
         </Provider>
+      </ThemeProvider>
+
     </div>
   );
 }

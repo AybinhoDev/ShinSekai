@@ -15,6 +15,7 @@ const ErrorNotFound = () => {
 const Container = styled.div`
 margin-top:5%;
 vertical-align: middle;
+
 `
 const Image = styled.img`
 width: 200px;
@@ -26,5 +27,6 @@ width: auto;
 font-size: 25px;
 text-align: center;
 font-weight:bold;
+color: ${props => props.theme.text};
 `
 export default ErrorNotFound;

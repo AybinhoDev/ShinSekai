@@ -62,18 +62,23 @@ const Detail = (props) => {
         )
     }
     return (
+      
         <Container>
-             <Row>
-                 <Button primary={true} backgroundColor="#00b894" size="small" label={t('detail.back')} onClick={()=>history.push('/home')}></Button>
-                 <Button primary={true} backgroundColor="#00b894" size="small" label={t('home.library')} onClick={()=>history.push('/library')}></Button>
-            </Row>
-            <h1>Manga Detail</h1>
-            <h2>{manga.title}</h2>
             <SubContainer>
-                <Image src={manga.image_url}></Image>
+            <Image src={manga.image_url}></Image> 
                 <Block>
+                <Row>
+                 <Button primary={true} backgroundColor="#ff0000" size="large" label={t('detail.back')} onClick={()=>history.push('/home')}></Button>
+                 <Button primary={true} backgroundColor="#00b894" size="large" label={t('home.library')} onClick={()=>history.push('/library')}></Button>
+                </Row>
+                <h1>Manga Detail</h1>
+
+                <h2>{manga.title}</h2>
+                <br></br>
                     <p>Synopsis : {manga.synopsis} </p>
-                    <Button size='medium' label={t('detail.add')} onClick={() => handleLibrary({img: manga.image_url, name:manga.title})}></Button>
+                    <br></br>
+                    <br></br>
+                       <Button primary={true} backgroundColor="#000fff" size='large' label={t('detail.add')} onClick={() => handleLibrary({img: manga.image_url, name:manga.title})}></Button>
                 </Block>
             </SubContainer>
         </Container>
@@ -82,6 +87,14 @@ const Detail = (props) => {
 const Container = styled.div`
 display:flex;
 flex-direction:column;
+background-color: ${props => props.theme.general.primary};
+margin: 5% 25%;
+background: rgba( 0, 184, 148, 0.55 );
+box-shadow: 0 8px 32px 0 rgba( 0, 184, 148, 0.57 );
+backdrop-filter: blur( 4px );
+-webkit-backdrop-filter: blur( 4px );
+border-radius: 10px;
+border: 1px solid rgba( 255, 255, 255, 0.18 );
 `
 const Row = styled.div`
 width:100%;
@@ -89,21 +102,28 @@ padding-top: 15px;
 display: flex;
 justify-content: space-around;
 `
+
 const SubContainer = styled.div`
 display:flex;
 flex-direction:row;
 `
 const Image = styled.img`
 position:left;
-width:15%;
-height:20%;
-border-radius:12%;
-margin-right:20px;
+width:35%;
+height:50%;
+border-radius:25px;
+
+margin-left:-150px;
+margin-top:50px;
+margin-bottom:50px;
 `
 const Block = styled.div`
 height:20%;
 width:80%;
-padding:10px;
-text-align:left;
+margin:5px;
+text-align:center;
+font-size:20px;
+margin-top:50px;
 `
+
 export default Detail;

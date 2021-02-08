@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next'
 import france from '../../assets/france.png'
 import uk from '../../assets/united-kingdom.png'
 import { useHistory } from 'react-router-dom'
+import ThemeButton from '../button/themeButton'
 
 const Header = () => {
   const dispatch = useDispatch()
@@ -21,7 +22,12 @@ const Header = () => {
   return (
     <Container>
       <StyledDiv>
-        <StyledSpan onClick={()=>history.push('/home')}>Shinsekai</StyledSpan>
+        <StyledSpanTitle onClick={()=>history.push('/home')}>SHINSEKAI</StyledSpanTitle>
+      </StyledDiv>
+      <StyledDiv>
+      <ThemeContainer>
+        <ThemeButton></ThemeButton>
+      </ThemeContainer>
       </StyledDiv>
         <StyledDiv>
           <Flag src={france} onClick={() => changeLanguage('fr')}></Flag>
@@ -40,7 +46,7 @@ const Container = styled.div`
   background-color: #00b894;
   display: flex;
   justify-content: space-between;
-  height: 60px;
+  height: 50px;
 `
 const Flag = styled.img`
 height:30px;
@@ -50,9 +56,22 @@ margin-right:5px;
 `
 const StyledSpan = styled.span `
 color: black;
-letter-spacing: 0.2rem;
+font-size:20px;
+
+`
+const StyledSpanTitle = styled.span `
+color: black;
+font-size:30px;
 font-weight: bold;
 `
+
+const ThemeContainer = styled.div`
+position: fixed;
+top: 10px;
+left: 230px;
+  
+`
+
 const StyledDiv = styled.div `
 margin: 0 2%;
 display: inline-flex;
